@@ -3,7 +3,7 @@
 ## Notes: Bouton autour de la minimap pour afficher, masquer ou verrouiller la fenêtre du chat Twitch.
 ## Notes-frFR: Bouton autour de la minimap pour afficher, masquer ou verrouiller la fenêtre du chat Twitch.
 ## Author: Shotharii
-## Version: 1.0
+## Version: 1.1
 ## IconTexture: Interface\AddOns\Twitch Chat WoW\icon
 ## SavedVariables: TwitchChatWoWDB
 

@@ -57,11 +57,28 @@ end
 local PANEL_PARTS = {
     WorldMapFrame = { "BorderFrame", "ScrollContainer", "NavBar", "TitleCanvasSpacerFrame", "SidePanelToggle", "QuestLog", "MiniBorderFrame" },
 }
+-- Mesure protégée : en combat, certaines fenêtres sont « restreintes » et le jeu
+-- refuse de les mesurer (erreur Lua). On les ignore simplement.
 local function RawRect(f, px)
-    local l, b, w, h = f:GetRect()
-    if not l or w < 2 or h < 2 then return nil end
-    local s = f:GetEffectiveScale() * px
+    if type(f) ~= "table" or not f.GetRect then return nil end
+    if f.IsForbidden and f:IsForbidden() then return nil end
+    if f.IsAnchoringRestricted then
+        local okR, restricted = pcall(f.IsAnchoringRestricted, f)
+        if not okR or restricted then return nil end
+    end
+    local ok, l, b, w, h = pcall(f.GetRect, f)
+    if not ok or type(l) ~= "number" or type(b) ~= "number" or type(w) ~= "number" or type(h) ~= "number" then return nil end
+    if w < 2 or h < 2 then return nil end
+    local okS, es = pcall(f.GetEffectiveScale, f)
+    if not okS or type(es) ~= "number" then return nil end
+    local s = es * px
     return { l * s, b * s, (l + w) * s, (b + h) * s }
+end
+local function SafeVisible(f)
+    if type(f) ~= "table" or not f.IsVisible then return false end
+    if f.IsForbidden and f:IsForbidden() then return false end
+    local ok, v = pcall(f.IsVisible, f)
+    return ok and v and true or false
 end
 local function FrameRect(f, px, name)
     local parts = name and PANEL_PARTS[name]
@@ -69,7 +86,7 @@ local function FrameRect(f, px, name)
         local u
         for _, key in ipairs(parts) do
             local c = f[key]
-            if type(c) == "table" and c.IsVisible and c:IsVisible() then
+            if SafeVisible(c) then
                 local r = RawRect(c, px)
                 if r then
                     if not u then u = r else
@@ -88,7 +105,7 @@ local function OpenPanelRects()
     local seen, list = {}, {}
     local function add(name)
         local f = _G[name]
-        if type(f) == "table" and not seen[f] and f.IsVisible and f.GetRect and f:IsVisible() then
+        if type(f) == "table" and not seen[f] and f.GetRect and SafeVisible(f) then
             seen[f] = true
             local r = FrameRect(f, px, name)
             if r then
@@ -172,13 +189,20 @@ local function UpdateSignal()
     signalTex:SetColorTexture(1, g / 255, 1, 1)
 end
 
-local signalTick = 0
-signal:SetScript("OnUpdate", function(self, elapsed)
-    signalTick = signalTick + elapsed
-    if not DB then return end
-    signalTick = 0
+-- Tout est protégé : une erreur ne doit jamais remonter au jeu à chaque image.
+local errorShown = false
+local function Tick()
     UpdateSignal()
     UpdateDataStrip()
+end
+signal:SetScript("OnUpdate", function(self, elapsed)
+    if not DB then return end
+    local ok, err = pcall(Tick)
+    if not ok and not errorShown then
+        errorShown = true
+        DB.lastError = tostring(err)
+        Print("|cffff4040erreur interne ignorée|r (" .. tostring(err) .. ")")
+    end
 end)
 
 ---------------------------------------------------------------- Bouton de minimap
@@ -376,10 +400,10 @@ SlashCmdList.TWITCHCHATWOW = function(msg)
         end
         for _, name in ipairs(GAME_PANELS) do
             local f = _G[name]
-            if type(f) == "table" and f.IsVisible and f:IsVisible() then
+            if SafeVisible(f) then
                 show(name, f)
                 for k, c in pairs(f) do
-                    if type(k) == "string" and type(c) == "table" and c.IsVisible and c.GetRect and c ~= f and c:IsVisible() then show("  ." .. k, c) end
+                    if type(k) == "string" and type(c) == "table" and c.GetRect and c ~= f and SafeVisible(c) then show("  ." .. k, c) end
                 end
             end
         end
