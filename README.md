@@ -9,6 +9,8 @@ Créé par **Shotharii** — viens me voir en live :
 [![Twitch](https://img.shields.io/badge/Twitch-shotharii-9146FF?logo=twitch&logoColor=white)](https://www.twitch.tv/shotharii)
 [![TikTok](https://img.shields.io/badge/TikTok-@shothari-000000?logo=tiktok&logoColor=white)](https://www.tiktok.com/@shothari)
 
+### ⬇️ [Télécharger Twitch Chat WoW](https://github.com/Shothari/twitch-chat-wow/raw/main/Twitch-Chat-WoW.zip)
+
 ## Ce que ça fait
 
 - **Deux onglets** : Twitch et TikTok, dans une fenêtre au style « Carte & journal des quêtes ».
@@ -25,7 +27,7 @@ Créé par **Shotharii** — viens me voir en live :
 
 ## Installation
 
-1. Télécharge le zip depuis la page **Releases** (à droite), ou *Code > Download ZIP*.
+1. Télécharge **[Twitch-Chat-WoW.zip](https://github.com/Shothari/twitch-chat-wow/raw/main/Twitch-Chat-WoW.zip)** et décompresse-le.
 2. Mets le dossier **`Twitch Chat WoW`** dans
    `World of Warcraft\_forever_\Interface\AddOns`.
 3. Double-clique **une seule fois** sur **`INSTALLER (une seule fois).bat`** dans ce dossier.
