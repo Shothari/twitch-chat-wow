@@ -65,6 +65,11 @@ La modération TikTok se fait dans LIVE Studio.
 
 ## Commandes en jeu
 
+<img src="captures/menu-minimap.png" align="right" width="300" alt="Menu du bouton de la minimap">
+
+Tout se fait aussi depuis le **bouton de la minimap** (clic droit pour ouvrir le menu) :
+masquer, verrouiller, passer derrière les fenêtres du jeu, relancer, ouvrir ta chaîne, lancer OBS ou TikTok LIVE Studio.
+
 | Commande | Effet |
 |---|---|
 | `/twitch` | afficher / masquer |
@@ -76,6 +81,8 @@ La modération TikTok se fait dans LIVE Studio.
 | `/twitch bouton` | masquer / afficher le bouton de la minimap |
 
 Raccourci clavier : **Ctrl + Alt + T** pour afficher / masquer la fenêtre.
+
+<br clear="right">
 
 ## Désinstaller
 
