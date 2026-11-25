@@ -30,7 +30,7 @@ Créé par **Shotharii** — viens me voir en live :
 <table>
 <tr>
 <td align="center"><img src="captures/onglet-twitch.png" width="380" alt="Onglet Twitch"><br><b>Onglet Twitch</b> : modération, AutoMod, bouton pour vider le chat et icônes OBS / TikTok LIVE Studio</td>
-<td align="center"><img src="captures/onglet-tiktok.png" width="380" alt="Onglet TikTok"><br><b>Onglet TikTok</b> : le chat de ton LIVE TikTok</td>
+<td align="center"><img src="captures/onglet-tiktok.png" width="380" alt="Onglet TikTok"><br><b>Onglet TikTok</b> : le chat de ton LIVE TikTok, via TikTok LIVE Studio</td>
 </tr>
 </table>
 
