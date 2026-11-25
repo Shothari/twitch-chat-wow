@@ -1,0 +1,45 @@
+﻿CHAT TWITCH + TIKTOK POUR WOW FOREVER
+============================
+
+Ton chat Twitch dans une fenêtre au style de WoW, avec la modération
+(supprimer, timeout, bannir, AutoMod) et un bouton autour de la minimap.
+
+INSTALLATION
+  1. Mets le dossier « Twitch Chat WoW » dans
+     World of Warcraft\_forever_\Interface\AddOns
+     (comme n'importe quel addon).
+  2. Double-clique UNE SEULE FOIS sur « INSTALLER (une seule fois).bat ».
+     Si Windows affiche « Windows a protégé votre ordinateur » :
+     « Informations complémentaires » puis « Exécuter quand même ».
+  3. Lance WoW. Une fois en jeu, la fenêtre du chat apparaît.
+     La première fois, une page Twitch s'ouvre : vérifie le code et
+     clique « Autoriser ».
+
+Pourquoi l'étape 2 ? Les addons WoW n'ont pas le droit d'aller sur
+Internet. La fenêtre du chat est donc un petit programme à côté du jeu ;
+l'installateur le fait démarrer tout seul avec Windows et il ne s'affiche
+que quand tu es en jeu.
+
+CHAT TIKTOK (onglet TikTok)
+  TikTok ne permet pas de lire le chat d'un live directement. La fenêtre lit
+  donc le chat affiché dans TikTok LIVE Studio, sur ton PC, en lecture seule.
+  - Lance TikTok LIVE Studio avec le raccourci « TikTok LIVE Studio (Chat WoW) »
+    créé sur ton bureau par l'installateur (pas avec l'icône habituelle).
+  - Garde le chat du live ouvert dans LIVE Studio (tu peux le détacher dans
+    sa propre fenêtre et la réduire).
+  - Lecture seule : pour modérer sur TikTok, utilise LIVE Studio.
+  Ce raccourci ouvre un accès local (port 9222) à LIVE Studio tant qu'il est
+  ouvert ; il n'est pas accessible depuis Internet.
+
+DANS LE JEU
+  - Bouton près de la minimap : clic gauche = afficher / masquer,
+    clic droit = menu (verrouiller, relancer le chat).
+  - /twitch, /twitch lock, /twitch unlock, /twitch relancer, /twitch bouton
+  - Dans la fenêtre : glisser le titre pour déplacer, coin bas-droit pour
+    redimensionner, - / + pour la transparence, cadenas = les clics
+    passent au jeu, clic droit sur un message = modérer, zone du bas pour
+    écrire.
+  - Dans les options de WoW, choisis l'affichage « Fenêtré (plein écran) ».
+
+DÉSINSTALLER
+  Programme\Desinstaller.bat, puis supprime le dossier « Twitch Chat WoW ».
