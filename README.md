@@ -25,6 +25,26 @@ Créé par **Shotharii** — viens me voir en live :
 - **Boutons** dans la fenêtre : vider le chat (balai), transparence − / +, cadenas, lancer OBS, lancer TikTok LIVE Studio.
 - Se lance **tout seul avec le jeu**.
 
+## Captures d'écran
+
+<table>
+<tr>
+<td align="center"><img src="captures/onglet-twitch.png" width="380" alt="Onglet Twitch"><br><b>Onglet Twitch</b> : le chat avec modération et AutoMod</td>
+<td align="center"><img src="captures/onglet-tiktok.png" width="380" alt="Onglet TikTok"><br><b>Onglet TikTok</b> : le chat de ton LIVE TikTok</td>
+</tr>
+</table>
+
+**Intégration totale** : le chat passe derrière les fenêtres du jeu (carte, fiche personnage, métiers…) et revient devant d'un simple clic.
+
+<p align="center"><img src="captures/derriere-carte.png" width="800" alt="Le chat passe derrière la carte du monde"></p>
+
+<table>
+<tr>
+<td align="center"><img src="captures/derriere-fiche-perso.png" width="380" alt="Derrière la fiche personnage"><br>Derrière la fiche personnage</td>
+<td align="center"><img src="captures/derriere-metiers.png" width="380" alt="Derrière la fenêtre des métiers"><br>Derrière la fenêtre des métiers</td>
+</tr>
+</table>
+
 ## Installation
 
 1. Télécharge **[Twitch-Chat-WoW.zip](https://github.com/Shothari/twitch-chat-wow/raw/main/Twitch-Chat-WoW.zip)** et décompresse-le.
