@@ -4,7 +4,7 @@
 
 Tu streames en jouant ? Plus besoin de quitter le jeu pour lire ton chat, modérer ou lancer ton live : tout est dans une fenêtre au style de WoW, qui se fond dans ton interface.
 
-Créé par **Shotharii** — viens me voir en live :
+Créé par **Shothari** — viens me voir en live :
 
 [![Twitch](https://img.shields.io/badge/Twitch-shotharii-9146FF?logo=twitch&logoColor=white)](https://www.twitch.tv/shotharii)
 [![TikTok](https://img.shields.io/badge/TikTok-@shothari-000000?logo=tiktok&logoColor=white)](https://www.tiktok.com/@shothari)
