@@ -9,7 +9,7 @@
     - Messages retenus par AutoMod : boutons Autoriser / Refuser.
     - Zone de saisie en bas pour écrire dans ton chat.
     - Ctrl+Alt+T (ou le cadenas) : mode "clic à travers" (la souris passe au jeu).
-    - Icône près de l'horloge Windows : changer de chaîne, se reconnecter, replacer, quitter.
+    - Clic droit sur la barre de titre (chat déverrouillé) : changer de chaîne, se reconnecter, replacer, quitter.
 #>
 param([string]$Channel, [switch]$WithGame, [switch]$Restart)
 
@@ -265,7 +265,7 @@ $worker = {
             try { Connect-Account }
             catch {
                 $State.Paused = $true
-                Say ("Connexion à Twitch impossible : " + $_.Exception.Message + ". Clic droit sur l'icône près de l'horloge > « Se connecter à Twitch » pour réessayer.")
+                Say ("Connexion à Twitch impossible : " + $_.Exception.Message + ". Clic droit sur la barre de titre du chat > « Se connecter à Twitch » pour réessayer.")
                 continue
             }
 
@@ -649,7 +649,7 @@ $ps2 = [PowerShell]::Create()
                     <Rectangle Canvas.Left="0" Canvas.Top="5.5" Width="10" Height="6.5" Fill="#FFD100" RadiusX="1" RadiusY="1"/>
                   </Canvas>
                 </Button>
-                <Button x:Name="BtnClose" Style="{StaticResource WowButton}" Background="{StaticResource RedBtn}" ToolTip="Fermer">
+                <Button x:Name="BtnClose" Style="{StaticResource WowButton}" Background="{StaticResource RedBtn}" ToolTip="Masquer (le bouton de la minimap le réaffiche)">
                   <Path Data="M0,0 L9,9 M9,0 L0,9" Stroke="#FFD100" StrokeThickness="2.2"/>
                 </Button>
               </StackPanel>
@@ -1237,7 +1237,7 @@ $win.Add_SourceInitialized({
     [void][OvNative]::SetWindowLong($script:hwnd, $GWL_EXSTYLE, ($ex -bor $WS_EX_TOOLWINDOW))
     [System.Windows.Interop.HwndSource]::FromHwnd($script:hwnd).AddHook($hook)
     if (-not [OvNative]::RegisterHotKey($script:hwnd, $HOTKEY_ID, ($MOD_CONTROL -bor $MOD_ALT), $VK_T)) {
-        Add-Sys "Raccourci Ctrl+Alt+T indisponible (déjà utilisé). Utilise l'icône près de l'horloge pour déverrouiller."
+        Add-Sys "Raccourci Ctrl+Alt+T indisponible (déjà utilisé). Utilise le bouton de minimap de l'addon pour déverrouiller."
     }
 })
 
@@ -1256,7 +1256,9 @@ function Close-ByUser {
     try { $wp = Get-Process -Name 'Wow' -ErrorAction SilentlyContinue | Select-Object -First 1; if ($wp) { Set-Content -Path (Join-Path $here 'ferme-par-moi.txt') -Value $wp.Id } } catch {}
     $win.Close()
 }
-$win.FindName('BtnClose').Add_Click({ Close-ByUser })
+# La croix masque seulement le chat : un clic sur le bouton de la minimap le réaffiche
+$script:xHidden = $false
+$win.FindName('BtnClose').Add_Click({ $script:xHidden = $true; Set-ChatVisible $false })
 
 # ---------------------------------------------------------------- Icône de notification
 $tray = New-Object System.Windows.Forms.NotifyIcon
@@ -1402,7 +1404,8 @@ foreach ($it in @($miShow, $script:trayLock, $miChan, $miLogin, $miLogout, $miRe
 }
 $tray.ContextMenuStrip = $menu
 $tray.Add_DoubleClick({ Set-ClickThrough (-not $script:locked) })
-$tray.Visible = $true
+$tray.Visible = $false   # pas d'icône près de l'horloge (demande de Thomas) : le menu s'ouvre par clic droit sur la barre de titre
+$header.Add_MouseRightButtonUp({ param($s, $e) $e.Handled = $true; $menu.Show([System.Windows.Forms.Cursor]::Position) })
 
 $win.Add_Closing({
     if ($win.WindowState -eq 'Normal') {
@@ -1594,6 +1597,13 @@ $signalTimer.Add_Tick({
         if ($sig -lt 0) { Update-Visibility; return }
         if ($sig -eq $script:lastSignal) { return }
         $script:lastSignal = $sig
+        if ($script:xHidden) {
+            # masqué par la croix : le premier clic sur le bouton de la minimap le réaffiche
+            $script:xHidden = $false
+            Set-ChatVisible $true
+            if ($sig -eq 1) { if (-not $script:locked) { Set-ClickThrough $true } } elseif ($script:locked) { Set-ClickThrough $false }
+            return
+        }
         switch ($sig) {
             0 { Set-ChatVisible $true;  if ($script:locked) { Set-ClickThrough $false } }
             1 { Set-ChatVisible $true;  if (-not $script:locked) { Set-ClickThrough $true } }
